@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from '../../redux/actions';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
+// searchTextSelector
 import { todoListSelector } from '../../redux/selectors';
 
 export default function TodoList() {
@@ -11,6 +12,7 @@ export default function TodoList() {
     const [priority, setPriority] = useState('Medium');
 
     const todoList = useSelector(todoListSelector);
+    // const searchText = useSelector(searchTextSelector);
 
     const dispath = useDispatch();
 
@@ -40,9 +42,6 @@ export default function TodoList() {
     return (
         <Row style={{ height: 'calc(100% - 40px)' }}>
             <Col span={24} style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}>
-                {/* <Todo name="Learn React" prioriry="High" />
-                <Todo name="Learn Redux" prioriry="Medium" />
-                <Todo name="Learn JavaScript" prioriry="Low" /> */}
                 {todoList.map((todo) => (
                     <Todo key={todo.id} name={todo.name} prioriry={todo.priority} />
                 ))}
