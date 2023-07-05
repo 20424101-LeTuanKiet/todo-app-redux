@@ -20,7 +20,7 @@ export default function TodoList() {
         // dispath()
         dispath(
             addTodo({
-                id: uuidv4,
+                id: uuidv4(),
                 name: todoName,
                 priority: priority,
                 completed: false,
