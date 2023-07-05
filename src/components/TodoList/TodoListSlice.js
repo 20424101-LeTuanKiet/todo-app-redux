@@ -1,23 +1,23 @@
 // Giá trị mặc định trong store
 const initState = [
-    {
-        id: 1,
-        name: 'Learn Personal Trainer',
-        completed: false,
-        priority: 'High',
-    },
-    {
-        id: 2,
-        name: 'Lunch',
-        completed: true,
-        priority: 'Low',
-    },
-    {
-        id: 3,
-        name: 'Find job',
-        completed: false,
-        priority: 'Medium',
-    },
+    // {
+    //     id: 1,
+    //     name: 'Learn Personal Trainer',
+    //     completed: false,
+    //     priority: 'High',
+    // },
+    // {
+    //     id: 2,
+    //     name: 'Lunch',
+    //     completed: true,
+    //     priority: 'Low',
+    // },
+    // {
+    //     id: 3,
+    //     name: 'Find job',
+    //     completed: false,
+    //     priority: 'Medium',
+    // },
 ];
 
 const todoListReducer = (state = initState, action) => {
