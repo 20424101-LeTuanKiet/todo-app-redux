@@ -12,7 +12,6 @@ export default function TodoList() {
     const [priority, setPriority] = useState('Medium');
 
     const todoList = useSelector(todosRemainingSelector);
-    // const searchText = useSelector(searchTextSelector);
 
     const dispath = useDispatch();
 
