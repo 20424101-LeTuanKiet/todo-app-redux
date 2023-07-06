@@ -75,7 +75,11 @@ export default function TodoList() {
                             <Tag color="gray">Low</Tag>
                         </Select.Option>
                     </Select>
-                    <Button type="primary" onClick={handleAddTodoList}>
+                    <Button
+                        type="primary"
+                        onClick={handleAddTodoList}
+                        disabled={!todoName.trim()}
+                    >
                         Add
                     </Button>
                 </Input.Group>
