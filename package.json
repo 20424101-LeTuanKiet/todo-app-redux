@@ -8,12 +8,14 @@
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
         "antd": "^5.6.4",
+        "gh-pages": "^5.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.1.1",
         "react-scripts": "5.0.1",
         "redux": "^4.2.1",
         "redux-devtools-extension": "^2.13.9",
+        "reselect": "^4.1.8",
         "uuid": "^9.0.0",
         "web-vitals": "^2.1.4"
     },
@@ -21,7 +23,9 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
@@ -40,5 +44,6 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "homepage": "https://20424101-LeTuanKiet.github.io/todo-app-redux-and-redux-toolkit"
 }

@@ -1,7 +1,7 @@
 import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import filtersSlice from './filtersSlice';
+import filtersSlice from './FiltersSlice';
 
 const { Search } = Input;
 
@@ -46,7 +46,7 @@ export default function Filters() {
                 />
             </Col>
 
-            <Col sm={24}>
+            <Col span={24}>
                 <Typography.Paragraph
                     style={{
                         fontWeight: 'bold',
@@ -63,7 +63,7 @@ export default function Filters() {
                 </Radio.Group>
             </Col>
 
-            <Col sm={24}>
+            <Col span={24}>
                 <Typography.Paragraph
                     style={{
                         fontWeight: 'bold',

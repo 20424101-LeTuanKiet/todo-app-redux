@@ -3,9 +3,8 @@ import Todo from '../Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-// searchTextSelector
 import { todosRemainingSelector } from '../../redux/selectors';
-import todoListSlice from './todoListSlice';
+import todoListSlice from './TodoListSlice';
 
 export default function TodoList() {
     const [todoName, setTodoName] = useState('');
@@ -39,7 +38,7 @@ export default function TodoList() {
     };
 
     return (
-        <Row style={{ height: 'calc(100% - 40px)' }}>
+        <Row style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}>
             <Col
                 span={24}
                 style={{ height: 'calc(100% - 40px)', overflowY: 'auto' }}
