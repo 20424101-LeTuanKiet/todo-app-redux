@@ -1,3 +1,7 @@
+## Video Demo: https://youtu.be/r1BXS1ltNoU
+
+## Live Demo: https://20424101-letuankiet.github.io/todo-app-redux-and-redux-toolkit/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
