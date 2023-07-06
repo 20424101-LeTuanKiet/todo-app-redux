@@ -1,7 +1,7 @@
 import { Col, Row, Input, Typography, Radio, Select, Tag } from 'antd';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchFilterChange, statusFilterChange, prioritiesFilterChange } from '../../redux/actions';
+import filtersSlice from './filtersSlice';
 
 const { Search } = Input;
 
@@ -14,30 +14,46 @@ export default function Filters() {
 
     const handleSearchText = (e) => {
         setSearchText(e.target.value);
-        dispatch(searchFilterChange(e.target.value));
+        dispatch(filtersSlice.actions.searchFilterChange(e.target.value));
     };
 
     const hanldFilterStatus = (e) => {
         setFilterStatus(e.target.value);
-        dispatch(statusFilterChange(e.target.value));
+        dispatch(filtersSlice.actions.statusFilterChange(e.target.value));
     };
 
     const handlePriorityChange = (value) => {
         setFilterPriories(value);
-        dispatch(prioritiesFilterChange(value));
+        dispatch(filtersSlice.actions.prioritiesFilterChange(value));
     };
 
     return (
         <Row justify="center">
             <Col span={24}>
-                <Typography.Paragraph style={{ fontWeight: 'bold', marginBottom: 3, marginTop: 10 }}>
+                <Typography.Paragraph
+                    style={{
+                        fontWeight: 'bold',
+                        marginBottom: 3,
+                        marginTop: 10,
+                    }}
+                >
                     Search
                 </Typography.Paragraph>
-                <Search placeholder="input search text" value={searchText} onChange={handleSearchText} />
+                <Search
+                    placeholder="input search text"
+                    value={searchText}
+                    onChange={handleSearchText}
+                />
             </Col>
 
             <Col sm={24}>
-                <Typography.Paragraph style={{ fontWeight: 'bold', marginBottom: 3, marginTop: 10 }}>
+                <Typography.Paragraph
+                    style={{
+                        fontWeight: 'bold',
+                        marginBottom: 3,
+                        marginTop: 10,
+                    }}
+                >
                     Filter By Status
                 </Typography.Paragraph>
                 <Radio.Group value={filterStatus} onChange={hanldFilterStatus}>
@@ -48,7 +64,13 @@ export default function Filters() {
             </Col>
 
             <Col sm={24}>
-                <Typography.Paragraph style={{ fontWeight: 'bold', marginBottom: 3, marginTop: 10 }}>
+                <Typography.Paragraph
+                    style={{
+                        fontWeight: 'bold',
+                        marginBottom: 3,
+                        marginTop: 10,
+                    }}
+                >
                     Filter By Priority
                 </Typography.Paragraph>
                 <Select

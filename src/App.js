@@ -21,7 +21,7 @@ function App() {
                 height: '90vh',
             }}
         >
-            <Title style={{ textAlign: 'center' }}>TODO APP with REDUX</Title>
+            <Title style={{ textAlign: 'center', margin: 0 }}>TODO APP</Title>
             <Filters />
             <Divider />
             <h3 style={{ marginTop: 0 }}>TODO LIST</h3>
