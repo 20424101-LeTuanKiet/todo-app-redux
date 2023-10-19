@@ -11,7 +11,7 @@ const setItemLocalStorage = (todoList) => {
 
 const getItemLocalStorage = () => {
     let todoList = JSON.parse(localStorage.getItem('todoList'));
-    console.log(todoList);
+    // console.log(todoList);
     return todoList;
 };
 
