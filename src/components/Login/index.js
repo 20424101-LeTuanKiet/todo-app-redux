@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Button, Form, Input } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const onFinish = (values) => {
     console.log('Success:', values);
@@ -8,7 +9,13 @@ const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
 };
 
-export default function index() {
+export default function Index() {
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        navigate('/register');
+    };
+
     return (
         <Row
             style={{
@@ -75,16 +82,25 @@ export default function index() {
                 <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        Submit
+                <div style={{ display: 'flex' }}>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                    <Button
+                        style={{ marginLeft: '2.2rem' }}
+                        type="dashed"
+                        onClick={redirect}
+                    >
+                        Sign up
                     </Button>
-                </Form.Item>
+                </div>
             </Form>
         </Row>
     );

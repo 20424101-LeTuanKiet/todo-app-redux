@@ -1,8 +1,11 @@
 import React from 'react';
 import { Row, Button, Form, Input } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import * as API from '../../utils/XMLHttpRequests';
 
 const onFinish = (values) => {
     console.log('Success:', values);
+    API.post('/register', values);
 };
 const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -17,7 +20,13 @@ const validateMessages = {
     },
 };
 
-export default function index() {
+export default function Index() {
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        navigate('/login');
+    };
+
     return (
         <Row
             style={{
@@ -49,7 +58,7 @@ export default function index() {
                 autoComplete="off"
             >
                 <Form.Item
-                    name={['user', 'email']}
+                    name={['email']}
                     label="Email"
                     rules={[
                         {
@@ -98,16 +107,25 @@ export default function index() {
                 <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
 
-                <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
-                    <Button type="primary" htmlType="submit">
-                        Submit
+                <div style={{ display: 'flex' }}>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                    <Button
+                        style={{ marginLeft: '2.2rem' }}
+                        type="dashed"
+                        onClick={redirect}
+                    >
+                        Sign in
                     </Button>
-                </Form.Item>
+                </div>
             </Form>
         </Row>
     );
