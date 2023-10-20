@@ -3,28 +3,40 @@ import { Row, Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import * as API from '../../utils/XMLHttpRequests';
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-    API.post('/register', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
-
-/* eslint-disable no-template-curly-in-string */
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-};
-
 export default function Index() {
     const navigate = useNavigate();
 
-    const redirect = () => {
-        navigate('/login');
+    const redirect = (path) => {
+        navigate(path);
+    };
+
+    const redirectLogin = () => {
+        redirect('/login');
+    };
+
+    const onFinish = async (values) => {
+        console.log('Success:', values);
+        const { status, data } = await API.post('/user/register', values);
+        console.log(data);
+        if (status === 201) {
+            redirectLogin();
+        } else {
+            alert(
+                'An error occurred, please try again later or contact us at https://tuankiet.id.vn',
+            );
+        }
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+    /* eslint-disable no-template-curly-in-string */
+    const validateMessages = {
+        required: '${label} is required!',
+        types: {
+            email: '${label} is not a valid email!',
+            number: '${label} is not a valid number!',
+        },
     };
 
     return (
@@ -121,7 +133,7 @@ export default function Index() {
                     <Button
                         style={{ marginLeft: '2.2rem' }}
                         type="dashed"
-                        onClick={redirect}
+                        onClick={redirectLogin}
                     >
                         Sign in
                     </Button>

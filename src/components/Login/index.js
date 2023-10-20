@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+import API from '../../utils/XMLHttpRequests';
 
 export default function Index() {
     const navigate = useNavigate();
 
-    const redirect = () => {
-        navigate('/register');
+    const redirect = (path) => {
+        navigate(path);
+    };
+
+    const redirectRegister = () => {
+        redirect('/register');
+    };
+
+    const redirectHome = () => {
+        redirect('/');
+    };
+
+    useEffect(() => {
+        console.log('auth');
+        if (JSON.parse(localStorage.getItem('auth_authenticated')) === true) {
+            redirectHome();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const onFinish = async (values) => {
+        console.log('Success:', values);
+        try {
+            const { status, data } = await API.post('/auth', values);
+            console.log({ status, data });
+            localStorage.auth_authenticated = data.authenticated;
+            localStorage.auth_accessToken = data.accessToken;
+            localStorage.auth_refreshToken = data.refreshToken;
+            redirectHome();
+        } catch (e) {
+            // login fail...!
+            console.log(e.response);
+            const { status, data } = e.response;
+            console.log({ status, data });
+        }
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
     };
 
     return (
@@ -96,7 +126,7 @@ export default function Index() {
                     <Button
                         style={{ marginLeft: '2.2rem' }}
                         type="dashed"
-                        onClick={redirect}
+                        onClick={redirectRegister}
                     >
                         Sign up
                     </Button>
