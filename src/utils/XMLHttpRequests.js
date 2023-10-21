@@ -3,7 +3,7 @@ import axios from 'axios';
 // baseURL: 'https://api-todoapp.vercel.app/api'
 // baseURL: 'http://localhost:3000/api'
 const XMLHttpRequests = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: 'https://api-todoapp.vercel.app/api',
 });
 
 XMLHttpRequests.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
