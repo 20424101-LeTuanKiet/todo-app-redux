@@ -2,9 +2,9 @@ import { Col, Row, Input, Button, Select, Tag } from 'antd';
 import Todo from '../Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { todosRemainingSelector } from '../../redux/selectors';
-import todoListSlice from './TodoListSlice';
+import { addNewTodo, fetchTodos } from './TodoListSlice';
 
 export default function TodoList() {
     const [todoName, setTodoName] = useState('');
@@ -12,12 +12,24 @@ export default function TodoList() {
 
     const todoList = useSelector(todosRemainingSelector);
 
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTodos());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleAddTodoList = () => {
-        // dispath()
-        dispath(
-            todoListSlice.actions.addTodo({
+        // dispatch(
+        //     todoListSlice.actions.addTodo({
+        //         id: uuidv4(),
+        //         name: todoName,
+        //         priority: priority,
+        //         completed: false,
+        //     }),
+        // );
+        dispatch(
+            addNewTodo({
                 id: uuidv4(),
                 name: todoName,
                 priority: priority,

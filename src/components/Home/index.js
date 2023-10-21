@@ -1,10 +1,22 @@
 import React from 'react';
-import { Typography, Divider, Row, Col } from 'antd';
+import { Typography, Divider, Row, Col, Button } from 'antd';
 import TodoList from '../TodoList';
 import Filters from '../Filters';
+import { useNavigate } from 'react-router-dom';
 const { Title } = Typography;
 
-export default function index() {
+export default function Home() {
+    const navigate = useNavigate();
+
+    const redirect = (path) => {
+        navigate(path);
+    };
+
+    const redirectRegister = () => {
+        localStorage.clear();
+        redirect('/login');
+    };
+
     return (
         <Row
             style={{
@@ -31,6 +43,17 @@ export default function index() {
                     height: '85vh',
                 }}
             >
+                <Button
+                    style={{
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                    }}
+                    type="dashed"
+                    onClick={redirectRegister}
+                >
+                    Logout
+                </Button>
                 <Title style={{ textAlign: 'center', margin: 0 }}>
                     TODO APP
                 </Title>
