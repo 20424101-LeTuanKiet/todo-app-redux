@@ -55,7 +55,7 @@ const todosSlice = createSlice({
                 state.status = 'idle';
             })
             .addCase(completeTodo.pending, (state, action) => {
-                state.status = 'loading';
+                state.status = 'loading_complete';
             })
             .addCase(completeTodo.fulfilled, (state, action) => {
                 // let currentTodo = state.todos.find(
@@ -67,45 +67,127 @@ const todosSlice = createSlice({
     },
 });
 
-export function addTodos(todo) {
-    return function addTodosThunk(dispatch, getState) {
-        console.log('[addThuk]', getState());
-        console.log({ todo });
-        dispatch(todosSlice.actions.addTodo(todo));
-    };
-}
+// export function addTodos(todo) {
+//     return function addTodosThunk(dispatch, getState) {
+//         console.log('[addThuk]', getState());
+//         console.log({ todo });
+//         dispatch(todosSlice.actions.addTodo(todo));
+//     };
+// }
 
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-    API.defaults.headers.common['x-access-token'] =
-        localStorage.getItem('auth_accessToken');
+    try {
+        API.defaults.headers.common['x-access-token'] =
+            localStorage.getItem('auth_accessToken');
 
-    console.log(localStorage.getItem('auth_accessToken'));
-    const { data } = await API.get('/todos', {});
-    console.log(data);
-    return data;
+        // console.log(localStorage.getItem('auth_accessToken'));
+        const res = await API.get('/todos', {});
+        const { data } = res;
+        // console.log(data);
+        return data;
+    } catch (e) {
+        try {
+            //Xin cap lai token
+            const accessToken = localStorage.getItem('auth_accessToken');
+            const refreshToken = localStorage.getItem('auth_refreshToken');
+
+            const resToken = await API.post('/auth/refresh', {
+                accessToken,
+                refreshToken,
+            });
+            const access_Token = resToken.data.accessToken;
+            localStorage.setItem('auth_accessToken', access_Token);
+        } catch (e) {
+            localStorage.clear();
+            window.location.href = '/';
+        }
+
+        //RECALL FETCH API
+        API.defaults.headers.common['x-access-token'] =
+            localStorage.getItem('auth_accessToken');
+
+        // console.log(localStorage.getItem('auth_accessToken'));
+        const res = await API.get('/todos', {});
+        const { data } = res;
+        // console.log(data);
+        return data;
+    }
 });
 
 export const addNewTodo = createAsyncThunk(
     'todos/addNewTodo',
     async (newTodo) => {
-        API.defaults.headers.common['x-access-token'] =
-            localStorage.getItem('auth_accessToken');
-        const body = newTodo;
-        const { data } = await API.post('/todos', body);
-        console.log(data);
-        return data;
+        try {
+            API.defaults.headers.common['x-access-token'] =
+                localStorage.getItem('auth_accessToken');
+            const body = newTodo;
+            const { data } = await API.post('/todos', body);
+            return data;
+        } catch (e) {
+            try {
+                //Xin cap lai token
+                const accessToken = localStorage.getItem('auth_accessToken');
+                const refreshToken = localStorage.getItem('auth_refreshToken');
+
+                const resToken = await API.post('/auth/refresh', {
+                    accessToken,
+                    refreshToken,
+                });
+                const access_Token = resToken.data.accessToken;
+                localStorage.setItem('auth_accessToken', access_Token);
+            } catch (e) {
+                localStorage.clear();
+                window.location.href = '/';
+            }
+
+            API.defaults.headers.common['x-access-token'] =
+                localStorage.getItem('auth_accessToken');
+            const body = newTodo;
+            const { data } = await API.post('/todos', body);
+            return data;
+        }
     },
 );
 
 export const completeTodo = createAsyncThunk(
     'todos/completeTodo',
     async ({ id, value }) => {
-        console.log(value);
-        API.defaults.headers.common['x-access-token'] =
-            localStorage.getItem('auth_accessToken');
-        const { data } = await API.put(`/todos/completed/${id}/${value}`, {});
-        console.log(data);
-        return id;
+        try {
+            // console.log(value);
+            API.defaults.headers.common['x-access-token'] =
+                localStorage.getItem('auth_accessToken');
+            const { data } = await API.put(
+                `/todos/completed/${id}/${value}`,
+                {},
+            );
+            console.log(data);
+            return id;
+        } catch (e) {
+            try {
+                //Xin cap lai token
+                const accessToken = localStorage.getItem('auth_accessToken');
+                const refreshToken = localStorage.getItem('auth_refreshToken');
+
+                const resToken = await API.post('/auth/refresh', {
+                    accessToken,
+                    refreshToken,
+                });
+                const access_Token = resToken.data.accessToken;
+                localStorage.setItem('auth_accessToken', access_Token);
+            } catch (e) {
+                localStorage.clear();
+                window.location.href = '/';
+            }
+
+            API.defaults.headers.common['x-access-token'] =
+                localStorage.getItem('auth_accessToken');
+            const { data } = await API.put(
+                `/todos/completed/${id}/${value}`,
+                {},
+            );
+            console.log(data);
+            return id;
+        }
     },
 );
 
